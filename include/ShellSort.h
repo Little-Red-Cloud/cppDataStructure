@@ -11,7 +11,7 @@ class ShellSort : public MySortBase<T> {
 
 public:
     // Constructor to initialize the base class and additional parameters
-    ShellSort(std::function<bool(T&, T&)> cmp = std::less<T>(), int maxStep = 5,
+    ShellSort(std::function<bool(const T&,const T&)> cmp = std::less<T>(), int maxStep = 5,
               std::function<int(int)> stepfunc = [](int i) { return 2 << i - 1; })
         : MySortBase<T>(shellSort, cmp), maxStep(maxStep), stepFunction(stepfunc) {}
 
@@ -22,7 +22,7 @@ public:
 // Implementation of Shell Sort
 template <typename T>
 void ShellSort<T>::operator()(std::vector<T>& vec, int start, int end, int sep) {
-    errorArgument(vec, start, end, sep);
+    this->errorArgument(vec, start, end, sep);
     int i = this->maxStep;
     int trueSep = this->stepFunction(i) * sep;
     InsertSort<T> insrtSort(this->cmp);

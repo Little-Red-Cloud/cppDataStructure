@@ -8,7 +8,7 @@ template <typename T>
 class BubbleSort : public MySortBase<T> {
 public:
     // Constructor to initialize the base class
-    BubbleSort(std::function<bool(T&, T&)> cmp = std::less<T>()) 
+    BubbleSort(std::function<bool(const T&,const T&)> cmp = std::less<T>()) 
         : MySortBase<T>(bubbleSort, cmp) {}
 
     // Overridden operator to perform bubble sort
@@ -18,7 +18,7 @@ public:
 // Implementation of Bubble Sort
 template <typename T>
 void BubbleSort<T>::operator()(std::vector<T>& vec, int start, int end, int sep) {
-    errorArgument(vec, start, end, sep);
+    this->errorArgument(vec, start, end, sep);
     for (int i = start; i <= end; i += sep) {
         int flag = 1;
         for (int j = start; j < end; j += sep) {

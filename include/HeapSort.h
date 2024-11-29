@@ -6,13 +6,13 @@
 // Heap Sort implementation
 template <typename T>
 class HeapSort : public MySortBase<T> {
-private:
+protected:
     // Helper function to perform heap sort
-    void helpFunction(std::vector<T>& vec);
+    void helpSort(std::vector<T>& vec);
 
 public:
     // Constructor to initialize the base class
-    HeapSort(std::function<bool(T&, T&)> cmp = std::less<T>())
+    HeapSort(std::function<bool(const T&,const T&)> cmp = std::less<T>())
         : MySortBase<T>(heapSort, cmp) {}
 
     // Overridden operator to perform heap sort
@@ -21,7 +21,7 @@ public:
 
 // Helper function for Heap Sort
 template <typename T>
-void HeapSort<T>::helpFunction(std::vector<T>& vec) {
+void HeapSort<T>::helpSort(std::vector<T>& vec) {
     auto getParent=[](int i){return i& 1? (i)/2:(i-1)/2;};
     auto sink=[&](int start,int end){
         int index=start;
@@ -53,12 +53,11 @@ void HeapSort<T>::helpFunction(std::vector<T>& vec) {
 // Implementation of Heap Sort
 template <typename T>
 void HeapSort<T>::operator()(std::vector<T>& vec, int start, int end, int sep) {
-    errorArgument(vec, start, end, sep);
-
+    this->errorArgument(vec, start, end, sep);
     std::vector<T> help;
     for (int i = start; i <= end; i += sep)
         help.push_back(vec[i]);
-    this->helpFunction(help);
+    this->helpSort(help);
     for (int i = start, j = 0; i <= end && j < help.size(); i += sep, j++)
         vec[i] = help[j];
 }

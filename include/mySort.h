@@ -9,6 +9,8 @@
 #include <SelectSort.h>
 #include <ShellSort.h>
 #include <HeapSort.h>
+#include <MergeSort.h>
+#include <QuickSort.h>
 
 // Factory class to create sorting objects
 template <typename T>
@@ -18,7 +20,7 @@ private:
 
 public:
     // Constructor to create a sorting object based on the sorting type
-    MySort(SortType sortType, std::function<bool(T&, T&)> cmp = std::less<T>(), int maxStep = 5,
+    MySort(SortType sortType, std::function<bool(const T&,const T&)> cmp = std::less<T>(), int maxStep = 5,
            std::function<int(int)> stepfunc = [](int i) { return 2 << i - 1; })
     {
         switch (sortType) {
@@ -40,6 +42,12 @@ public:
             break;
         case heapSort:
             ptr = new HeapSort<T>(cmp);
+            break;
+        case mergeSort:
+            ptr = new MergeSort<T>(cmp);
+            break;
+        case quickSort:
+            ptr = new QuickSort<T>(cmp);
             break;
         default:
             ptr = new HeapSort<T>(cmp);

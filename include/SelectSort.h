@@ -8,7 +8,7 @@ template <typename T>
 class SelectSort : public MySortBase<T> {
 public:
     // Constructor to initialize the base class
-    SelectSort(std::function<bool(T&, T&)> cmp = std::less<T>()) 
+    SelectSort(std::function<bool(const T&,const T&)> cmp = std::less<T>()) 
         : MySortBase<T>(selectSort, cmp) {}
 
     // Overridden operator to perform selection sort
@@ -18,7 +18,7 @@ public:
 // Implementation of Selection Sort
 template <typename T>
 void SelectSort<T>::operator()(std::vector<T>& vec, int start, int end, int sep) {
-    errorArgument(vec, start, end, sep);
+    this->errorArgument(vec, start, end, sep);
 
     for (int i = start; i < end; i += sep) {
         int min = i;

@@ -7,14 +7,14 @@
 #include<algorithm>
 
 // Enum to define different sorting types
-enum SortType { bubbleSort, insertSort, selectSort, shellSort, heapSort };
+enum SortType { bubbleSort, insertSort, selectSort, shellSort, heapSort,mergeSort,quickSort};
 
 // Base class for all sorting algorithms
 template <typename T>
 class MySortBase {
 public:
     // Constructor to initialize the sorting type and comparison function
-    MySortBase(SortType sortType, std::function<bool(T&, T&)> cmp = std::less<T>()) 
+    MySortBase(SortType sortType, std::function<bool(const T&,const T&)> cmp = std::less<T>()) 
         : sortType(sortType), cmp(cmp) {}
 
     // Pure virtual function to perform the sorting
@@ -23,21 +23,22 @@ public:
     // Function to get the sorting type
     virtual SortType getSortType() const { return sortType; }
 
+    // Function to validate and adjust the arguments for sorting
+    void errorArgument(std::vector<T>& vec, int start, int& end, int sep) {
+        if (end <= -1)
+            end += vec.size();
+        if (start < 0 || end >= vec.size() || start > end || sep <= 0)
+            throw std::invalid_argument("Invalid argument");
+    }
+
     // Destructor
     virtual ~MySortBase() {}
 
 protected:
-    std::function<bool(T&, T&)> cmp; // Comparison function
+    std::function<bool(const T&,const T&)> cmp; // Comparison function
     SortType sortType; // Sorting type
 };
 
-// Function to validate and adjust the arguments for sorting
-template <typename T>
-void errorArgument(std::vector<T>& vec, int& start, int& end, int& sep) {
-    if (end == -1)
-        end = vec.size() - 1;
-    if (start < 0 || end >= vec.size() || start > end || sep <= 0)
-        throw std::invalid_argument("Invalid argument");
-}
+
 
 #endif

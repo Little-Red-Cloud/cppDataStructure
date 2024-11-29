@@ -7,7 +7,7 @@ template <typename T>
 class InsertSort : public MySortBase<T> {
 public:
     // Constructor to initialize the base class
-    InsertSort(std::function<bool(T&, T&)> cmp = std::less<T>()) 
+    InsertSort(std::function<bool(const T&,const T&)> cmp = std::less<T>()) 
         : MySortBase<T>(insertSort, cmp) {}
 
     // Overridden operator to perform insertion sort
@@ -17,7 +17,7 @@ public:
 // Implementation of Insertion Sort
 template <typename T>
 void InsertSort<T>::operator()(std::vector<T>& vec, int start, int end, int sep) {
-    errorArgument(vec, start, end, sep);
+    this->errorArgument(vec, start, end, sep);
 
     for (int i = start; i <= end; i += sep) {
         T tmp = vec[i];

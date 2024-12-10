@@ -7,7 +7,7 @@
 #include<algorithm>
 
 // Enum to define different sorting types
-enum SortType { bubbleSort, insertSort, selectSort, shellSort, heapSort,mergeSort,quickSort};
+enum SortType { bubbleSort, insertSort, selectSort, shellSort, heapSort,mergeSort,quickSort,radixSort};
 
 // Base class for all sorting algorithms
 template <typename T>

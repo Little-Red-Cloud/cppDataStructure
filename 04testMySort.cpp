@@ -6,7 +6,7 @@ using namespace std;
 
 void test(SortType t){
     cout<<"----------------------\nsep=1\n";
-    vector<int> v = {124,47654,547,234,789,23};
+    vector<int> v = {124,47654,547,234,789,-23,-93};
     MySort<int> mySort(t);
     mySort(v);
     for(auto x:v){

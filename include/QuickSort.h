@@ -12,12 +12,12 @@ public:
     void operator()(std::vector<T>& vec, int start = 0, int end = -1, int sep = 1);
 protected:
     void helpSort(std::vector<T>& vec, int start, int end);
+    int findSep(std::vector<T>& vec, int start, int end);
 };
 
 template<typename T>
-void QuickSort<T>::helpSort(std::vector<T>& vec, int start, int end)
+int QuickSort<T>::findSep(std::vector<T>& vec, int start, int end)
 {
-    if(start >= end) return;
     int sep = start + (end - start) / 2;
     if(this->cmp(vec[end],vec[start]))
         std::swap(vec[start], vec[end]);
@@ -29,6 +29,14 @@ void QuickSort<T>::helpSort(std::vector<T>& vec, int start, int end)
         std::swap(vec[sep], vec[end - 1]);
         sep = end - 1;
     }
+    return sep;
+}
+
+template<typename T>
+void QuickSort<T>::helpSort(std::vector<T>& vec, int start, int end)
+{
+    if(start >= end) return;
+    int sep=findSep(vec,start,end);
     int i=start+1;
     int j=end-2;
     bool istop=false;
@@ -51,7 +59,7 @@ void QuickSort<T>::helpSort(std::vector<T>& vec, int start, int end)
             jstop=false;
         }
     }
-    if(i!=end-1 && i<end-1)
+    if(i<end-1)
         std::swap(vec[i],vec[end-1]);
     helpSort(vec,start,i-1);
     helpSort(vec,i+1,end);
